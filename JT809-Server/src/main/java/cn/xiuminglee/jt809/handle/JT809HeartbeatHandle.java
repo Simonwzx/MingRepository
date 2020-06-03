@@ -15,6 +15,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 public class JT809HeartbeatHandle extends SimpleChannelInboundHandler<JT809HeartbeatResponse> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, JT809HeartbeatResponse msg) throws Exception {
+        System.out.println("JT809HeartbeatHandle.channelRead0");
         msg.setMsgLength(JT809BasePacket.getFixedByteLength());
         msg.setMsgSn(Const.getMsgSN());
         msg.setMsgId(Const.BusinessDataType.UP_LINKTEST_RSP);

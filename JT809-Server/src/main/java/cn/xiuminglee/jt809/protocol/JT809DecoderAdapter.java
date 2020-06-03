@@ -25,6 +25,7 @@ public class JT809DecoderAdapter extends ByteToMessageDecoder {
     private static Logger log = LoggerFactory.getLogger(JT809DecoderAdapter.class);
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+        System.out.println("JT809DecoderAdapter.decode");
         //判断是否有可读的字节
         if (in.readableBytes() <= 0) {
             return;

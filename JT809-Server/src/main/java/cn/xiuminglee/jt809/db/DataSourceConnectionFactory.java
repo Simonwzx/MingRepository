@@ -21,7 +21,7 @@ import java.util.Properties;
 public class DataSourceConnectionFactory {
     private static Logger log = LoggerFactory.getLogger(DataSourceConnectionFactory.class);
     private static Connection dbConnection = null;
-    static {
+    /*static {
         Properties properties = new Properties();
         DataSource dataSource = null;
         try {
@@ -31,7 +31,7 @@ public class DataSourceConnectionFactory {
         } catch (Exception e) {
             log.error("数据源初始化失败！错误信息：{}",e.getMessage());
         }
-    }
+    }*/
 
     public static Connection getDbConnection(){
         return dbConnection;

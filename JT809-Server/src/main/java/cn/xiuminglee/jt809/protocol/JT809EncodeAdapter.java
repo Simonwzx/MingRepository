@@ -21,6 +21,7 @@ public class JT809EncodeAdapter extends MessageToByteEncoder<JT809BasePacket> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, JT809BasePacket packet, ByteBuf out) throws Exception {
+        System.out.println("JT809EncodeAdapter.encode");
 //        EncoderFactory.getEncoder(packet.getClass().getSimpleName()).encode(ctx,packet,out);
         byte[] allBody = packet.getAllBody();
         // 转义

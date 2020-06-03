@@ -18,30 +18,33 @@ public class JT809LoginHandle extends SimpleChannelInboundHandler<JT809LoginPack
     private static Logger log = LoggerFactory.getLogger(JT809LoginHandle.class);
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, JT809LoginPacket msg){
+    protected void channelRead0(ChannelHandlerContext ctx, JT809LoginPacket msg) {
+        System.out.println("JT809LoginHandle.channelRead0");
         JT809LoginResponsePacket loginResponsePacket = new JT809LoginResponsePacket();
-        byte LoginResponseCode = valid(msg);
-        loginResponsePacket.setResul(LoginResponseCode);
+        byte loginResponseCode = valid(msg);
+        loginResponsePacket.setResult(loginResponseCode);
         loginResponsePacket.setVerifyCode(0);
         // 登录响应
         ctx.channel().writeAndFlush(loginResponsePacket);
     }
 
-    /** 用户名密码校验*/
+    /**
+     * 用户名密码校验
+     */
     private byte valid(JT809LoginPacket msg) {
-        int userId =  msg.getUserId();
-        String password =  msg.getPassword();
-        log.info("接收到了登录的请求->用户名：{};密码：{};",userId,password);
+        int userId = msg.getUserId();
+        String password = msg.getPassword();
+        log.info("接收到了登录的请求->用户名：{};密码：{};", userId, password);
         if (Const.UserInfo.USER_ID == userId && Const.UserInfo.PASSWORD.equals(password)) {
             log.info("登录验证成功");
             return Const.LoginResponseCode.SUCCESS;
-        } else if (Const.UserInfo.USER_ID != userId){
+        } else if (Const.UserInfo.USER_ID != userId) {
             log.info("USER_ID不正确");
             return Const.LoginResponseCode.USERNAME_ERROR;
-        } else if (!Const.UserInfo.PASSWORD.equals(password)){
+        } else if (!Const.UserInfo.PASSWORD.equals(password)) {
             log.info("PASSWORD_ERROR");
             return Const.LoginResponseCode.PASSWORD_ERROR;
-        }else {
+        } else {
             log.info("OTHER_ERROR");
             return Const.LoginResponseCode.OTHER_ERROR;
         }
