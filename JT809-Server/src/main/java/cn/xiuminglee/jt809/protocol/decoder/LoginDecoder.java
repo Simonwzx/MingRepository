@@ -50,12 +50,16 @@ public class LoginDecoder implements Decoder {
         msgBodyBuf.readBytes(passwordBytes);
         loginPacket.setPassword(new String(passwordBytes, Charset.forName("GBK")));
 
-        // TODO ip和端口号的解析待确定
-        byte[] downLinkIpBytes = new byte[32];
-        msgBodyBuf.readBytes(downLinkIpBytes);
-        loginPacket.setDownLinkIp(new String(downLinkIpBytes));
+        // ip和端口号的解析待确定
+        StringBuilder ipBuilder = new StringBuilder();
+        for (int i = 0; i < 4; i++) {
+            byte[] ipSub = new byte[8];
+            msgBodyBuf.readBytes(ipSub);
+            ipBuilder.append(".").append(new String(ipSub, "GBK"));
+        }
+        String ip = ipBuilder.deleteCharAt(0).toString().replaceAll("\\u0000", "");
 
+        loginPacket.setDownLinkIp(ip);
         loginPacket.setDownLinkPort(msgBodyBuf.readShort());
-
     }
 }

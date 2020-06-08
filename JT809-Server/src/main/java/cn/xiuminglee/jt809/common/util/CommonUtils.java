@@ -6,6 +6,7 @@ import io.netty.buffer.Unpooled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -51,7 +52,24 @@ public class CommonUtils {
         System.arraycopy(first, 0, res, 0, first.length);
         System.arraycopy(back, 0, res, first.length, back.length);
         return res;
+    }
 
+    public static byte[] str2Bytes(String str, int byteLength) {
+        if (byteLength <= 0) {
+            return new byte[0];
+        }
+        byte[] res = new byte[byteLength];
+        try {
+            byte[] gbks = str.getBytes("GBK");
+            int diff = byteLength - gbks.length;
+            for (int i = 0; i < diff; i++) {
+                res[i] = 0x00;
+            }
+            System.arraycopy(gbks, 0, res, diff, gbks.length);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     /**

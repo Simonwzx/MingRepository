@@ -1,7 +1,10 @@
 package cn.xiuminglee.jt809.packet;
 
+import cn.xiuminglee.jt809.common.util.CommonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * @Author: Xiuming Lee
@@ -54,7 +57,24 @@ public class JT809LoginPacket extends JT809BasePacket {
 
     @Override
     public byte[] getMsgBodyByteArr() {
-        return new byte[0];
+        byte[] param1 = CommonUtils.int2bytes(this.userId);
+        byte[] param2 = new byte[8];
+        try {
+            param2 = this.password.getBytes("GBK");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        byte[] ip1 = CommonUtils.str2Bytes("192", 8);
+        byte[] ip2 = CommonUtils.str2Bytes("168", 8);
+        byte[] ip3 = CommonUtils.str2Bytes("0", 8);
+        byte[] ip4 = CommonUtils.str2Bytes("1", 8);
+        byte[] port = CommonUtils.short2Bytes(this.getDownLinkPort());
+        return CommonUtils.append(param1,
+                    CommonUtils.append(param2,
+                        CommonUtils.append(ip1,
+                                CommonUtils.append(ip2,
+                                        CommonUtils.append(ip3,
+                                                CommonUtils.append(ip4, port))))));
     }
 
     @Override

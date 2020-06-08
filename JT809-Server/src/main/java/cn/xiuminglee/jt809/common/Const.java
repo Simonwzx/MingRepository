@@ -60,9 +60,9 @@ public class Const {
 
     /** 用户信息，以下信息请自定义*/
     public interface UserInfo{
-        int USER_ID = 0000000001;
-        String PASSWORD = "密码";
-        int MSG_GNSSCENTERID = 0000000001;
+        int USER_ID = 1;
+        String PASSWORD = "模拟密码";
+        int MSG_GNSSCENTERID = 1;
     }
 
 

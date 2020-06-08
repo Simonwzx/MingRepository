@@ -3,6 +3,7 @@ package cn.xiuminglee.jt809.handle;
 import cn.xiuminglee.jt809.common.Const;
 import cn.xiuminglee.jt809.packet.JT809LoginPacket;
 import cn.xiuminglee.jt809.packet.JT809LoginResponsePacket;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
@@ -20,8 +21,9 @@ public class JT809LoginHandle extends SimpleChannelInboundHandler<JT809LoginPack
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, JT809LoginPacket msg) {
         System.out.println("JT809LoginHandle.channelRead0");
-        JT809LoginResponsePacket loginResponsePacket = new JT809LoginResponsePacket();
         byte loginResponseCode = valid(msg);
+
+        JT809LoginResponsePacket loginResponsePacket = new JT809LoginResponsePacket();
         loginResponsePacket.setResult(loginResponseCode);
         loginResponsePacket.setVerifyCode(0);
         // 登录响应
