@@ -1,5 +1,7 @@
 package cn.xiuminglee.jt809.packet;
 
+import cn.xiuminglee.jt809.common.MsgId;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -174,6 +176,11 @@ public class JT809Packet0x1202 extends JT809BasePacket {
     @Override
     public byte[] getMsgBodyByteArr() {
         return new byte[0];
+    }
+
+    @Override
+    public short getDefineMsgId() {
+        return MsgId.UP_EXG_MSG_REAL_LOCATION;
     }
 
     @Override

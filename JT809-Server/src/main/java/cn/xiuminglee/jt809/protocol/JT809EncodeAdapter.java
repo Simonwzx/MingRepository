@@ -45,17 +45,11 @@ public class JT809EncodeAdapter extends MessageToByteEncoder<JT809BasePacket> {
 
     private static JT809BasePacket renderJT809LoginPacket() {
         JT809LoginPacket a = new JT809LoginPacket();
-        a.setMsgSn(Const.getMsgSN());
-        a.setMsgId(Const.BusinessDataType.UP_CONNECT_REQ);
-        a.setMsgGNSSCenterId(Const.UserInfo.MSG_GNSSCENTERID);
-        a.setVersionFlag(new byte[]{1, 0, 0});
-        a.setEncryptFlag(Const.EncryptFlag.NO);
-        a.setEncryptKey(0);
-
         a.setUserId(1);
         a.setPassword("模拟密码");
-        a.setDownLinkPort((short) 8080);
-        a.setMsgLength(JT809LoginPacket.getFixedByteLength() + a.getMsgBodyByteArr().length);
+        a.setDownLinkIp("192.168.0.163");
+        a.setDownLinkPort((short) 11112);
+        a.setMessageHeader();
         return a;
     }
 }

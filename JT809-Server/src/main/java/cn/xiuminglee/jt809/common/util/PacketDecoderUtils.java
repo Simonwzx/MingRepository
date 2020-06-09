@@ -123,6 +123,7 @@ public class PacketDecoderUtils {
         packet.setVersionFlag(versionFlag);
         packet.setEncryptFlag(byteBuf.readByte());
         packet.setEncryptKey(byteBuf.readInt());
+        packet.setUtcTime(byteBuf.readLong());
         return byteBuf;
     }
 
@@ -141,8 +142,9 @@ public class PacketDecoderUtils {
      * @param byteBuf 是从数据体开始的ByteBuf
      * @return
      */
-    public static byte[] getMsgBodyByteArr(ByteBuf byteBuf) {
+    private static byte[] getMsgBodyByteArr(ByteBuf byteBuf) {
         // 1、获取数据数组
+        // 3 = CRC校验码2字节 + 尾标识1字节
         int msgBodyLength = byteBuf.readableBytes()-3;
         byte[] msgBodyByteArr = new byte[msgBodyLength];
         byteBuf.readBytes(msgBodyByteArr);

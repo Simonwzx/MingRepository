@@ -43,12 +43,9 @@ public class JT809LoginHandle extends SimpleChannelInboundHandler<JT809LoginPack
         } else if (Const.UserInfo.USER_ID != userId) {
             log.info("USER_ID不正确");
             return Const.LoginResponseCode.USERNAME_ERROR;
-        } else if (!Const.UserInfo.PASSWORD.equals(password)) {
+        } else {
             log.info("PASSWORD_ERROR");
             return Const.LoginResponseCode.PASSWORD_ERROR;
-        } else {
-            log.info("OTHER_ERROR");
-            return Const.LoginResponseCode.OTHER_ERROR;
         }
     }
 

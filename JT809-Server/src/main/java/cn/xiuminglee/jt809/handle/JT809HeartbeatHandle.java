@@ -15,14 +15,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 public class JT809HeartbeatHandle extends SimpleChannelInboundHandler<JT809HeartbeatResponse> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, JT809HeartbeatResponse msg) throws Exception {
-        System.out.println("JT809HeartbeatHandle.channelRead0");
-        msg.setMsgLength(JT809BasePacket.getFixedByteLength());
-        msg.setMsgSn(Const.getMsgSN());
-        msg.setMsgId(Const.BusinessDataType.UP_LINKTEST_RSP);
-        msg.setMsgGNSSCenterId(Const.UserInfo.MSG_GNSSCENTERID);
-        msg.setVersionFlag(new byte[]{1,0,0});
-        msg.setEncryptFlag(Const.EncryptFlag.NO);
-        msg.setEncryptKey(0);
+        msg.setMessageHeader();
         ctx.channel().writeAndFlush(msg);
     }
 }

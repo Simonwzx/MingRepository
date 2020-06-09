@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class JT809IdleStateHandler extends IdleStateHandler {
     private static Logger log = LoggerFactory.getLogger(JT809IdleStateHandler.class);
 
-    private static final int READER_IDLE_TIME = 60;
+    private static final int READER_IDLE_TIME = 180;
 
     public JT809IdleStateHandler() {
         super(READER_IDLE_TIME, 0, 0, TimeUnit.SECONDS);

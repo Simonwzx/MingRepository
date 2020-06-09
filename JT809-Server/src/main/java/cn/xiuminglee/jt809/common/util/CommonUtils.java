@@ -54,6 +54,24 @@ public class CommonUtils {
         return res;
     }
 
+    public static byte[] append(byte[]... array) {
+        if (null == array) {
+            return new byte[0];
+        }
+        int length = 0;
+        for (byte[] item : array) {
+            length += item.length;
+        }
+        byte[] res = new byte[length];
+        int offset = 0;
+        for (int i = 0; i < array.length; i++) {
+            byte[] item = array[i];
+            System.arraycopy(item, 0, res, offset, item.length);
+            offset += item.length;
+        }
+        return res;
+    }
+
     public static byte[] str2Bytes(String str, int byteLength) {
         if (byteLength <= 0) {
             return new byte[0];

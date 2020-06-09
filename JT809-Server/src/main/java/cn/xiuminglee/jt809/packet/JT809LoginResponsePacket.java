@@ -1,6 +1,7 @@
 package cn.xiuminglee.jt809.packet;
 
 import cn.xiuminglee.jt809.common.Const;
+import cn.xiuminglee.jt809.common.MsgId;
 import cn.xiuminglee.jt809.common.util.CommonUtils;
 
 /**
@@ -48,6 +49,11 @@ public class JT809LoginResponsePacket extends JT809BasePacket {
     public byte[] getMsgBodyByteArr() {
         byte[] verifyCodeBytes = CommonUtils.int2bytes(this.verifyCode);
         return CommonUtils.append(new byte[]{this.result},verifyCodeBytes);
+    }
+
+    @Override
+    public short getDefineMsgId() {
+        return MsgId.UP_CONNECT_RSP;
     }
 
     @Override

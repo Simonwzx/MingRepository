@@ -1,5 +1,6 @@
 package cn.xiuminglee.jt809.packet;
 
+import cn.xiuminglee.jt809.common.MsgId;
 import cn.xiuminglee.jt809.common.util.CommonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,23 +59,19 @@ public class JT809LoginPacket extends JT809BasePacket {
     @Override
     public byte[] getMsgBodyByteArr() {
         byte[] param1 = CommonUtils.int2bytes(this.userId);
-        byte[] param2 = new byte[8];
-        try {
-            param2 = this.password.getBytes("GBK");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        byte[] ip1 = CommonUtils.str2Bytes("192", 8);
-        byte[] ip2 = CommonUtils.str2Bytes("168", 8);
-        byte[] ip3 = CommonUtils.str2Bytes("0", 8);
-        byte[] ip4 = CommonUtils.str2Bytes("1", 8);
+        byte[] param2 = CommonUtils.str2Bytes(this.password, 8);
+        String[] ipArray = this.getDownLinkIp().split("\\.");
+        byte[] ip1 = CommonUtils.str2Bytes(ipArray[0], 8);
+        byte[] ip2 = CommonUtils.str2Bytes(ipArray[1], 8);
+        byte[] ip3 = CommonUtils.str2Bytes(ipArray[2], 8);
+        byte[] ip4 = CommonUtils.str2Bytes(ipArray[3], 8);
         byte[] port = CommonUtils.short2Bytes(this.getDownLinkPort());
-        return CommonUtils.append(param1,
-                    CommonUtils.append(param2,
-                        CommonUtils.append(ip1,
-                                CommonUtils.append(ip2,
-                                        CommonUtils.append(ip3,
-                                                CommonUtils.append(ip4, port))))));
+        return CommonUtils.append(param1, param2, ip1, ip2, ip3, ip4, port);
+    }
+
+    @Override
+    public short getDefineMsgId() {
+        return MsgId.UP_CONNECT_REQ;
     }
 
     @Override
