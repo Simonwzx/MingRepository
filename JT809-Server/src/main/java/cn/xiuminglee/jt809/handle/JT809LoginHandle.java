@@ -23,11 +23,12 @@ public class JT809LoginHandle extends SimpleChannelInboundHandler<JT809LoginPack
         System.out.println("JT809LoginHandle.channelRead0");
         byte loginResponseCode = valid(msg);
 
-        JT809LoginResponsePacket loginResponsePacket = new JT809LoginResponsePacket();
-        loginResponsePacket.setResult(loginResponseCode);
-        loginResponsePacket.setVerifyCode(0);
+        JT809LoginResponsePacket res = new JT809LoginResponsePacket();
+        res.setResult(loginResponseCode);
+        res.setVerifyCode(0);
+        res.setMessageHeader();
         // 登录响应
-        ctx.channel().writeAndFlush(loginResponsePacket);
+        ctx.channel().writeAndFlush(res);
     }
 
     /**

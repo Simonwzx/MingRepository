@@ -25,7 +25,8 @@ public class DataSourceConnectionFactory {
         Properties properties = new Properties();
         DataSource dataSource = null;
         try {
-            properties.load(new InputStreamReader(DataSourceConnectionFactory.class.getClassLoader().getResourceAsStream("db.properties"),"UTF-8"));
+            properties.load(new InputStreamReader(DataSourceConnectionFactory.class.getClassLoader()
+            .getResourceAsStream("db.properties"),"UTF-8"));
             dataSource = DruidDataSourceFactory.createDataSource(properties);
             dbConnection = dataSource.getConnection();
         } catch (Exception e) {
@@ -33,11 +34,11 @@ public class DataSourceConnectionFactory {
         }
     }*/
 
-    public static Connection getDbConnection(){
+    public static Connection getDbConnection() {
         return dbConnection;
     }
 
-    public static void closeResource1(Connection conn, Statement ps, ResultSet rs){
+    public static void closeResource1(Connection conn, Statement ps, ResultSet rs) {
         DbUtils.closeQuietly(conn);
         DbUtils.closeQuietly(ps);
         DbUtils.closeQuietly(rs);

@@ -37,8 +37,9 @@ public class JT809DecoderAdapter extends ByteToMessageDecoder {
         }
         // 3、判断是那种类型的数据，交给具体的解码器类完成。
         ByteBuf byteBuf = CommonUtils.getByteBuf(bytes);
+        // 跳过字节：头标识1 + 数据长度4 + 报文序列号4
         byteBuf.skipBytes(9);
-        // 获取业务标志
+        // 获取业务数据类型2字节
         short msgId = byteBuf.readShort();
 
         // 交给具体的解码器

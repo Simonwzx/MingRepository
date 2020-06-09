@@ -10,8 +10,8 @@ import cn.xiuminglee.jt809.packet.JT809BasePacket;
  */
 public interface Decoder {
     /**
-     *
-     * @param bytes
+     * 将转义后的完整消息 按照协议消息格式 解码成实体
+     * @param bytes 转义后的完整消息
      * @return
      */
     JT809BasePacket decoder(byte[] bytes) throws Exception;

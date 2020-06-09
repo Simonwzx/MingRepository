@@ -23,9 +23,11 @@ public class JT809ServerInitialzer extends ChannelInitializer<NioSocketChannel> 
         ch.pipeline().addLast(new JT809IdleStateHandler());
         ch.pipeline().addLast(new JT809AdapterHandle());
         ch.pipeline().addLast(new JT809DecoderAdapter());
+        //解码之后进行实际业务处理
         ch.pipeline().addLast(new JT809HeartbeatHandle());
         ch.pipeline().addLast(new JT809LoginHandle());
         ch.pipeline().addLast(new JT809Packet0x1202Handle());
+        //业务处理完毕发送应答消息
         ch.pipeline().addLast(new JT809EncodeAdapter());
     }
 }
